@@ -1,23 +1,23 @@
 const timeGauge = document.getElementById("timeGauge");
 var progress = document.getElementById("progress");
 var quSetIndex = 0,timeCount = 0,totalTime = 10,timeGaugeWidth = 150, increaseTimeBarWidth = timeGaugeWidth/totalTime,score=0;
-var reactImgSrc = ['1.png','2.png','3.png','4.png','5.png'];
+var reactImgSrc = ['image/1.png','image/2.png','image/3.png','image/4.png','image/5.png'];
 var range = [ {low:0,high:39},{low:40,high:59},{low:60,high:69},{low:70,high:79},{low:80,high:100} ];
 
 var quSet = [{question:'Who is the man on the picture?',
-               imgSrc:'sir.jpg',
+               imgSrc:'image/sir.jpg',
 			   choiceA:'Dr. Jamilur Reza Choudhury.',
 			   choiceB:'Dr. Muhammed Zafar Iqbal.',
 			   choiceC:'Dr. M. Kaykobad.',
 			   ans: 'A'
               },{question:'When Dr. Jamilur Reza Choudhury was awarded ekushey padak ?',
-               imgSrc:'Ekushey.jpg',
+               imgSrc:'image/Ekushey.jpg',
 			   choiceA:'2016',
 			   choiceB:'2015',
 			   choiceC:'2017',
 			   ans: 'C'
               },{question:'When Dr. Jamilur Reza Choudhury was  appointed as National Professor  ?',
-               imgSrc:'prof.jpg',
+               imgSrc:'image/prof.jpg',
 			   choiceA:'2016',
 			   choiceB:'2018',
 			   choiceC:'2011',
@@ -106,7 +106,7 @@ function checkAns(result)
 	}
 	else{
 		wrongAns();
-		if(quSetIndex < qLen){
+		if(quSetIndex < qLen-1){
 			timeCount = 0;
 			quSetIndex++;
 			renderQuestion();
