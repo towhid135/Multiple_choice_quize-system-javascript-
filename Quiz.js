@@ -1,20 +1,27 @@
 const timeGauge = document.getElementById("timeGauge");
 var progress = document.getElementById("progress");
-var quSetIndex = 0,timeCount = 0,totalTime = 10,timeGaugeWidth = 150, increaseTimeBarWidth = timeGaugeWidth/totalTime;
+var quSetIndex = 0,timeCount = 0,totalTime = 10,timeGaugeWidth = 150, increaseTimeBarWidth = timeGaugeWidth/totalTime,score=0;
+var reactImgSrc = ['1.png','2.png','3.png','4.png','5.png'];
+var range = [ {low:0,high:39},{low:40,high:59},{low:60,high:69},{low:70,high:79},{low:80,high:100} ];
 
-var quSet = [ {question:'What is your Name?',
-               imgSrc:'html.png',
-			   choiceA:'Towhidul Islam',
-			   choiceB:'Islam Towhid',
-			   choiceC:'Borkotullah Bulu',
+var quSet = [{question:'Who is the man on the picture?',
+               imgSrc:'sir.jpg',
+			   choiceA:'Dr. Jamilur Reza Choudhury.',
+			   choiceB:'Dr. Muhammed Zafar Iqbal.',
+			   choiceC:'Dr. M. Kaykobad.',
 			   ans: 'A'
-              },{question:'What is your Age?',
-                imgSrc:'css.png',
-			    choiceA:'21',
-			    choiceB:'22',
-			    choiceC:'23',
-				ans: 'B'
-			  }];
+              },{question:'When Dr. Jamilur Reza Choudhury was awarded ekushey padak ?',
+               imgSrc:'Ekushey.jpg',
+			   choiceA:'2016',
+			   choiceB:'2015',
+			   choiceC:'2017',
+			   ans: 'C'
+              },{question:'When Dr. Jamilur Reza Choudhury was  appointed as National Professor  ?',
+               imgSrc:'prof.jpg',
+			   choiceA:'2016',
+			   choiceB:'2018',
+			   choiceC:'2011',
+			  ans: 'B'}];
 			  
 const qLen = quSet.length;
 function start(){
@@ -59,6 +66,7 @@ function timeBar(){
 			}
 			else{
 				clearInterval(timer);
+				showScore();
 			}
 			
 		}
@@ -81,13 +89,48 @@ function correctAns(){
 	$('#'+quSetIndex+'').css('background-color','#0f0');
 }
 
-$('#A').click(  function(){
-	var q = quSet[quSetIndex];
-	console.log(quSetIndex);
-	if(q.ans == 'A') 
-	{
-		timeCount = 0;
+function checkAns(result)
+{
+	if(result == quSet[quSetIndex].ans) {
+		score++;
 		correctAns();
+		if(quSetIndex < qLen-1){
+			timeCount = 0;
+			quSetIndex++;
+			renderQuestion();
+		}
+		else{
+			clearInterval(timer);
+			showScore();
+		}
 	}
-	renderQuestion();
-} );
+	else{
+		wrongAns();
+		if(quSetIndex < qLen){
+			timeCount = 0;
+			quSetIndex++;
+			renderQuestion();
+		}
+		else{
+			clearInterval(timer);
+			showScore();
+		}
+	}
+}
+
+function showScore(){
+	$('#scoreContainer').toggle();
+	var totalQuestion = qLen;
+	var percentage = (score * 100)/totalQuestion;
+	//alert(percentage);
+	var len = range.length;
+	//alert(len);
+	for(i=0; i<len; i++){
+		if( percentage >= range[i].low && percentage <= range[i].high){
+			$('#scoreContainer').append( '<img src = '+reactImgSrc[i]+' >' );
+		    $('#scoreContainer').append( '<p>'+percentage+'%</p>' );
+			break;
+		}
+	}
+	
+}
