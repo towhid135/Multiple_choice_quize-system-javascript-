@@ -122,10 +122,9 @@ function showScore(){
 	$('#scoreContainer').toggle();
 	var totalQuestion = qLen;
 	var percentage = (score * 100)/totalQuestion;
-	//alert(percentage);
-	var len = range.length;
-	//alert(len);
-	for(i=0; i<len; i++){
+	percentage = percentage.toFixed(2);
+	
+	for( i in range){
 		if( percentage >= range[i].low && percentage <= range[i].high){
 			$('#scoreContainer').append( '<img src = '+reactImgSrc[i]+' >' );
 		    $('#scoreContainer').append( '<p>'+percentage+'%</p>' );
